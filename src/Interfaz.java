@@ -28,15 +28,9 @@ public class Interfaz extends JFrame{
     private JButton buttonRemover;
     private JTextField fieldRemover;
     private JButton buttonMostrar;
+    private JButton INSERTARPAQUETESButton;
 
     private TrackingSystem sistema = new TrackingSystem();
-    private Package p1;
-    private Package p2;
-    private Package p3;
-    private Package p4;
-    private Package p5;
-    private Package p6;
-
 
     public Interfaz(){
         setContentPane(panel1);
@@ -74,6 +68,23 @@ public class Interfaz extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 areaMostrar.setText(sistema.mostrarPackages());
+            }
+        });
+        INSERTARPAQUETESButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Package p1 = new Package("AS001", new Address("Logreñas", "Quito", "Pichincha", "180-120"),
+                        new Address("Gaspar", "Quito", "Pichincha", "17-128"),LocalDate.now().plusDays(8));
+                Package p2 = new Package("AS002", new Address("Logreñas", "Quito", "Pichincha", "180-120"),
+                        new Address("Gaspar", "Ambato", "Pichincha", "17-128"),LocalDate.now().plusDays(8));
+                Package p3 = new Package("AS003", new Address("Logreñas", "Quito", "Pichincha", "180-120"),
+                        new Address("Gaspar", "Quito", "Pichincha", "17-128"),LocalDate.now().plusDays(8));
+                Package p4 = new Package("AS004", new Address("Logreñas", "Quito", "Pichincha", "180-120"),
+                        new Address("Gaspar", "Quito", "Pichincha", "17-128"),LocalDate.now().plusDays(8));
+                Package p5 = new Package("AS005", new Address("Logreñas", "Quito", "Pichincha", "180-120"),
+                        new Address("Gaspar", "Quito", "Pichincha", "17-128"),LocalDate.now().plusDays(8));
+                Package p6 = new Package("AS006", new Address("Logreñas", "Quito", "Pichincha", "180-120"),
+                        new Address("Gaspar", "Quito", "Pichincha", "17-128"),LocalDate.now().plusDays(8));
             }
         });
     }
