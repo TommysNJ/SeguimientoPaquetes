@@ -23,7 +23,7 @@ public class TrackingSystem {
 
     public Package searchByRecipientAddress(String recipientAddress) {
         for (Package aPackage : packages) {
-            if (aPackage.getRecipientAddress().toString().equals(recipientAddress)) {
+            if (aPackage.getRecipientAddress().toString().equalsIgnoreCase(recipientAddress)) {
                 return aPackage;
             }
         }
