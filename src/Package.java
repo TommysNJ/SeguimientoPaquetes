@@ -47,11 +47,9 @@ public class Package {
 
     @Override
     public String toString() {
-        return "Package{" +
-                "trackingNumber='" + trackingNumber + '\'' +
-                ", senderAddress=" + senderAddress +
-                ", recipientAddress=" + recipientAddress +
-                ", estimatedDeliveryDate=" + estimatedDeliveryDate +
-                '}';
+        return "***Paquete***\n" + "TrackingNumber: " + trackingNumber + "\n" +
+                "DIRECCIÓN DEL REMITENTE\n" + senderAddress + "\n" +
+                "DIRECCIÓN DEL DESTINATARIO\n" + recipientAddress + "\n" +
+                "Fecha de entrega aproximada: " + estimatedDeliveryDate + "\n\n";
     }
 }

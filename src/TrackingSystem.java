@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -17,6 +16,9 @@ public class TrackingSystem {
             }
         }
         return false;
+    }
+    public String mostrarPackages (){
+        return packages.toString();
     }
 
     public Package searchByRecipientAddress(String recipientAddress) {

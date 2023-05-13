@@ -27,6 +27,7 @@ public class Interfaz extends JFrame{
     private JTextField fieldSeguimiento;
     private JButton buttonRemover;
     private JTextField fieldRemover;
+    private JButton buttonMostrar;
 
     private TrackingSystem sistema = new TrackingSystem();
     private Package p1;
@@ -68,6 +69,12 @@ public class Interfaz extends JFrame{
                 }*/
             }
         });
-        
+
+        buttonMostrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaMostrar.setText(sistema.mostrarPackages());
+            }
+        });
     }
 }
