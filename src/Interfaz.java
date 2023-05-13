@@ -34,6 +34,8 @@ public class Interfaz extends JFrame{
     private JTextField fieldCiudadB;
     private JTextField fieldEstadoB;
     private JTextField fieldCodigoB;
+    private JButton BUSCARButton1;
+    private JTextField fieldBuscarS;
 
     private TrackingSystem sistema = new TrackingSystem();
 
@@ -134,6 +136,18 @@ public class Interfaz extends JFrame{
                     fieldCiudadB.setText("");
                     fieldEstadoB.setText("");
                     fieldCodigoB.setText("");
+                }
+            }
+        });
+        BUSCARButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (sistema.searchByTrackingNumber(fieldBuscarS.getText())==null){
+                    areaNumero.setText("Número de seguimiento no encontrado, ingrese uno existente.");
+                    fieldBuscarS.setText("");
+                } else{
+                    areaNumero.setText(sistema.searchByTrackingNumber(fieldBuscarS.getText()).toString());
+                    fieldBuscarS.setText("");
                 }
             }
         });

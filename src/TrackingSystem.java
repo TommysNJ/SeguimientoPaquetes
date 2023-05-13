@@ -32,7 +32,6 @@ public class TrackingSystem {
     public Package searchByTrackingNumber(String trackingNumber){
         packages.sort(Comparator.comparing(Package::getTrackingNumber));
 
-        // Buscar el paquete utilizando búsqueda binaria
         int inicio = 0;
         int tope = packages.size() - 1;
         while (inicio <= tope) {
