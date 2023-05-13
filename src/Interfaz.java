@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class Interfaz extends JFrame{
     private JPanel panel1;
@@ -26,6 +25,8 @@ public class Interfaz extends JFrame{
     private JTextField fieldEstadoD;
     private JTextField fieldCodigoD;
     private JTextField fieldSeguimiento;
+    private JButton buttonRemover;
+    private JTextField fieldRemover;
 
     private TrackingSystem sistema = new TrackingSystem();
     private Package p1;
@@ -56,5 +57,17 @@ public class Interfaz extends JFrame{
             }
         });
 
+        buttonRemover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sistema.removePackage(fieldRemover.getText());
+                /*if (sistema.searchByTrackingNumber(fieldSeguimiento.getText())==null){
+                    areaRemover.setText("No se ha encontrado el paquete ingresado.");
+                } else {
+                    sistema.removePackage(fieldRemover.getText());
+                }*/
+            }
+        });
+        
     }
 }
