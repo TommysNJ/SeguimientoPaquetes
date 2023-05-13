@@ -10,7 +10,7 @@ public class TrackingSystem {
     }
     public boolean removePackage(String trackingNumber){
         for (int i=0 ; i < packages.size() ; i++){
-            if (packages.get(i).getTrackingNumber().equals(trackingNumber)) {
+            if (packages.get(i).getTrackingNumber().equalsIgnoreCase(trackingNumber)) {
                 packages.remove(packages.get(i));
                 return true;
             }

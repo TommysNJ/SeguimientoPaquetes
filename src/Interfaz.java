@@ -36,6 +36,8 @@ public class Interfaz extends JFrame{
     private JTextField fieldCodigoB;
     private JButton BUSCARButton1;
     private JTextField fieldBuscarS;
+    private JButton BUSCARButton2;
+    private JTextField fieldCiudadBuscar;
 
     private TrackingSystem sistema = new TrackingSystem();
 
@@ -118,6 +120,8 @@ public class Interfaz extends JFrame{
 
                 areaInsertar.setText("Se ha agregado con éxito los paquetes, vaya a la sección Mostrar Paquetes para verificar.");
 
+                areaInsertar.setEnabled(false);
+
             }
         });
         BUSCARButton.addActionListener(new ActionListener() {
@@ -148,6 +152,18 @@ public class Interfaz extends JFrame{
                 } else{
                     areaNumero.setText(sistema.searchByTrackingNumber(fieldBuscarS.getText()).toString());
                     fieldBuscarS.setText("");
+                }
+            }
+        });
+        BUSCARButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (sistema.searchByCity(fieldCiudadBuscar.getText()).isEmpty()){
+                    areaCiudad.setText("No hay ningún paquete en la ciudad especificada.");
+                    fieldCiudadBuscar.setText("");
+                }else{
+                    areaCiudad.setText(sistema.searchByCity(fieldCiudadBuscar.getText()).toString());
+                    fieldCiudadBuscar.setText("");
                 }
             }
         });
