@@ -1,170 +1,122 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Interfaz extends JFrame{
     private JPanel panel1;
     private JTabbedPane tabbedPane1;
-    private JTextArea areaCrear;
+    private JButton buttonQuemarDatos;
+    private JTextArea areaQuemarDatos;
+    private JTextField fieldNombre;
+    private JTextField fieldPaginas;
+    private JButton buttonAgregar;
+    private JTextArea areaAgregar;
+    private JTextField fieldRemoverId;
+    private JTextField fieldRemoverNombre;
+    private JButton btnEliminar1;
+    private JButton btnEliminar2;
     private JTextArea areaRemover;
-    private JTextArea areaMostrar;
-    private JTextArea areaInsertar;
-    private JTextArea areaDireccion;
-    private JTextArea areaNumero;
-    private JTextArea areaCiudad;
-    private JButton CREARButton;
-    private JTextField fieldCalleR;
-    private JTextField fieldCalleD;
-    private JTextField fieldFecha;
-    private JTextField fieldCiudadR;
-    private JTextField fieldEstadoR;
-    private JTextField fieldCodigoR;
-    private JTextField fieldCiudadD;
-    private JTextField fieldEstadoD;
-    private JTextField fieldCodigoD;
-    private JTextField fieldSeguimiento;
-    private JButton buttonRemover;
-    private JTextField fieldRemover;
-    private JButton buttonMostrar;
-    private JButton INSERTARPAQUETESButton;
-    private JButton BUSCARButton;
-    private JTextField fieldCalleB;
-    private JTextField fieldCiudadB;
-    private JTextField fieldEstadoB;
-    private JTextField fieldCodigoB;
-    private JButton BUSCARButton1;
-    private JTextField fieldBuscarS;
-    private JButton BUSCARButton2;
-    private JTextField fieldCiudadBuscar;
-
-    private TrackingSystem sistema = new TrackingSystem();
+    private JTextField fieldBuscarID;
+    private JButton buttonBuscarID;
+    private JTextArea textArea1;
+    private JTextField fieldBuscarNombre;
+    private JButton buttonBuscarNombre;
+    private JTextArea textArea2;
+    private JButton buttonSuma;
+    private JTextArea textArea3;
+    private JButton buttonTodos;
+    private Lista lista = new Lista();
+    private int indice;
 
     public Interfaz(){
         setContentPane(panel1);
+        areaQuemarDatos.setEnabled(false);
 
-        CREARButton.addActionListener(new ActionListener() {
+        buttonQuemarDatos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (sistema.searchByTrackingNumber(fieldSeguimiento.getText())==null){
-                    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    String textoFecha = fieldFecha.getText();
-                    LocalDate fecha = LocalDate.parse(textoFecha,formato);
-                    sistema.addPackage(new Package(fieldSeguimiento.getText(),new Address(fieldCalleR.getText(),fieldCiudadR.getText(),fieldEstadoR.getText(),fieldCodigoR.getText()),
-                            new Address(fieldCalleD.getText(),fieldCiudadD.getText(),fieldEstadoD.getText(),fieldCodigoD.getText()),fecha));
-                    areaCrear.setText("El paquete se ha creado con éxito, vaya a la sección Mostrar Datos para verificar.");
+                buttonQuemarDatos.setEnabled(false);
 
-                    fieldSeguimiento.setText("");
-                    fieldCalleR.setText("");
-                    fieldCiudadR.setText("");
-                    fieldEstadoR.setText("");
-                    fieldCodigoR.setText("");
-                    fieldCalleD.setText("");
-                    fieldCiudadD.setText("");
-                    fieldEstadoD.setText("");
-                    fieldCodigoD.setText("");
-                    fieldFecha.setText("");
+                Libro l1 = new Libro (100,"Caperucita");
+                Libro l2 = new Libro (54,"Odisea");
+                Libro l3 = new Libro (75,"Los tres chanchitos");
+                Libro l4 = new Libro (90,"Harry Potter");
 
+                lista.addLibro(l1);
+                lista.addLibro(l2);
+                lista.addLibro(l3);
+                lista.addLibro(l4);
+
+                areaQuemarDatos.setText(lista.toString());
+
+            }
+        });
+        buttonAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Libro libro= new Libro(Integer.parseInt(fieldPaginas.getText()), fieldNombre.getText());
+                lista.addLibro(libro);
+                areaAgregar.setText(libro.toString());
+            }
+        });
+        btnEliminar1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (lista.searchById(fieldRemoverId.getText())==null){
+                    areaRemover.setText("No existe ese Id.");
                 } else {
-                    areaCrear.setText("El número de seguimiento ingresado ya existe, ingrese otro!");
-                    fieldSeguimiento.setText("");
+                    lista.removeId(fieldRemoverId.getText());
+                    areaRemover.setText("Se eliminó con exito.");
                 }
+
             }
         });
-
-        buttonRemover.addActionListener(new ActionListener() {
+        btnEliminar2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sistema.removePackage(fieldRemover.getText());
-                areaRemover.setText("Se ha removido con éxito el paquete, vaya a la sección Mostrar Datos para verificar.");
-                fieldRemover.setText("");
-                /*if (sistema.searchByTrackingNumber(fieldSeguimiento.getText())==null){
-                    areaRemover.setText("No se ha encontrado el paquete ingresado.");
+                if (lista.searchByName(fieldRemoverNombre.getText())==null){
+                    areaRemover.setText("No existe ese Nombre.");
                 } else {
-                    sistema.removePackage(fieldRemover.getText());
-                }*/
-            }
-        });
-
-        buttonMostrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                areaMostrar.setText(sistema.mostrarPackages());
-            }
-        });
-        INSERTARPAQUETESButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                INSERTARPAQUETESButton.setEnabled(false);
-
-                Package p1 = new Package("AS001", new Address("Logreñas", "Quito", "Ecuador", "10003"),
-                        new Address("Gaspar", "Quito", "Ecuador", "13420"),LocalDate.now().plusDays(20));
-                Package p2 = new Package("AS002", new Address("Yasa", "Ambato", "Ecuador", "12004"),
-                        new Address("Manuel", "Ambato", "Ecuador", "12850"),LocalDate.now().plusDays(60));
-                Package p3 = new Package("AS003", new Address("Cañar", "Quito", "Ecuador", "11230"),
-                        new Address("Gaspar", "Guayaquil", "Ecuador", "12840"),LocalDate.now().plusDays(8));
-                Package p4 = new Package("AS004", new Address("Yasa", "Loja", "Ecuador", "60045"),
-                        new Address("Villa", "Ambato", "Ecuador", "18045"),LocalDate.now().plusDays(44));
-                Package p5 = new Package("AS005", new Address("Loño", "Ambato", "Ecuador", "76485"),
-                        new Address("Breila", "Quito", "Ecuador", "12367"),LocalDate.now().plusDays(12));
-                Package p6 = new Package("AS006", new Address("Pinta", "Quito", "Ecuador", "97859"),
-                        new Address("Gaspar", "Quito", "Ecuador", "65788"),LocalDate.now().plusDays(3));
-
-                sistema.addPackage(p1);
-                sistema.addPackage(p2);
-                sistema.addPackage(p3);
-                sistema.addPackage(p4);
-                sistema.addPackage(p5);
-                sistema.addPackage(p6);
-
-                areaInsertar.setText("Se ha agregado con éxito los paquetes, vaya a la sección Mostrar Paquetes para verificar.");
-
-                areaInsertar.setEnabled(false);
-
-            }
-        });
-        BUSCARButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Address adr = new Address(fieldCalleB.getText(),fieldCiudadB.getText(),fieldEstadoB.getText(),fieldCodigoB.getText());
-                if (sistema.searchByRecipientAddress(adr.toString())==null){
-                    areaDireccion.setText("Dirección de destinatario no encontrada, ingrese una existente.");
-                    fieldCalleB.setText("");
-                    fieldCiudadB.setText("");
-                    fieldEstadoB.setText("");
-                    fieldCodigoB.setText("");
-                } else{
-                    areaDireccion.setText(sistema.searchByRecipientAddress(adr.toString()).toString());
-                    fieldCalleB.setText("");
-                    fieldCiudadB.setText("");
-                    fieldEstadoB.setText("");
-                    fieldCodigoB.setText("");
+                    lista.removeNombre(fieldRemoverNombre.getText());
+                    areaRemover.setText("Se eliminó con exito.");
                 }
             }
         });
-        BUSCARButton1.addActionListener(new ActionListener() {
+
+        buttonBuscarID.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (sistema.searchByTrackingNumber(fieldBuscarS.getText())==null){
-                    areaNumero.setText("Número de seguimiento no encontrado, ingrese uno existente.");
-                    fieldBuscarS.setText("");
-                } else{
-                    areaNumero.setText(sistema.searchByTrackingNumber(fieldBuscarS.getText()).toString());
-                    fieldBuscarS.setText("");
+                if (lista.searchById(fieldBuscarID.getText())==null){
+                    textArea1.setText("No existe ese Id.");
+                } else {
+                    textArea1.setText(lista.searchById(fieldBuscarID.getText()).toString());
                 }
             }
         });
-        BUSCARButton2.addActionListener(new ActionListener() {
+        buttonBuscarNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (sistema.searchByCity(fieldCiudadBuscar.getText()).isEmpty()){
-                    areaCiudad.setText("No hay ningún paquete en la ciudad especificada.");
-                    fieldCiudadBuscar.setText("");
-                }else{
-                    areaCiudad.setText(sistema.searchByCity(fieldCiudadBuscar.getText()).toString());
-                    fieldCiudadBuscar.setText("");
+                if (lista.searchByName(fieldBuscarNombre.getText())==null){
+                    textArea2.setText("No existe ese nombre.");
+                } else {
+                    textArea2.setText(lista.searchByName(fieldBuscarNombre.getText()).toString());
                 }
+            }
+        });
+        buttonTodos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea3.setText(lista.toString());
+            }
+        });
+        buttonSuma.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea3.setText("Total páginas: " + String.valueOf(lista.totalPaginas(0,0)));
             }
         });
     }
